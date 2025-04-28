@@ -88,16 +88,6 @@ python sheeprl.py \
   env.num_envs=1 env.sync_env=true
 ```
 
-### Visualize with TensorBoard
-
-After training, launch TensorBoard to inspect logs:
-
-```bash
-tensorboard --logdir logs/runs
-```
-
----
-
 ## Directory Structure
 
 ```
