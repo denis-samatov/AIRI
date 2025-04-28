@@ -6,22 +6,21 @@ A showcase of training and evaluating DreamerV3 (and PPO) on the CartPole-v1 env
 
 ## Table of Contents
 
-- [DreamerV3 CartPole-v1 Experiments](#dreamerv3-cartpole-v1-experiments)
-  - [Table of Contents](#table-of-contents)
-  - [Installation](#installation)
-  - [Dependencies](#dependencies)
-  - [Usage](#usage)
-    - [Clone Repository](#clone-repository)
-    - [Train DreamerV3 Agent](#train-dreamerv3-agent)
-    - [Train PPO Agent](#train-ppo-agent)
-    - [Visualize with TensorBoard](#visualize-with-tensorboard)
-  - [Directory Structure](#directory-structure)
+- [Installation](#installation)
+- [Dependencies](#dependencies)
+- [Usage](#usage)
+  - [Clone Repository](#clone-repository)
+  - [Train DreamerV3 Agent](#train-dreamerv3-agent)
+  - [Train PPO Agent](#train-ppo-agent)
+  - [Visualize with TensorBoard](#visualize-with-tensorboard)
+- [Directory Structure](#directory-structure)
+- [Results](#results)
 
 ---
 
 ## Installation
 
-Install the required Python packages by running:
+Install all required Python packages by running:
 
 ```bash
 pip install -r requirements.txt
@@ -37,17 +36,14 @@ pip install -r requirements.txt
 
 ## Dependencies
 
-All required packages are listed in `requirements.txt`. Key components include:
+Key components are listed in `requirements.txt`:
 
-- **Lightning Fabric** (`lightning`)
-- **Hydra / OmegaConf** (`hydra-core`, `omegaconf`)
-- **Gymnasium** (`gymnasium`, `gymnasium[atari]`)
-- **DM Control Suite** (`dm_control`)
-- **TensorBoard** (`tensorboard`)
-- **MoviePy** (`moviepy`)
-- Image/video helpers (`opencv-python`, `torchvision`, `python-dotenv`, `rich`)
+- `lightning`, `omegaconf`, `hydra-core`, `rich`: core framework and config
+- `gymnasium`, `gymnasium[atari]`, `dm_control`: environments
+- `torchvision`, `moviepy`, `opencv-python`: image/video utilities
+- `python-dotenv`, `tensorboard`: logging and environment
 
-Install them with:
+Install all with:
 
 ```bash
 pip install -r requirements.txt
@@ -66,7 +62,7 @@ cd sheeprl
 
 ### Train DreamerV3 Agent
 
-Run DreamerV3 on CartPole-v1:
+Quick 10k-step demo:
 
 ```bash
 python sheeprl.py \
@@ -78,7 +74,7 @@ python sheeprl.py \
 
 ### Train PPO Agent
 
-Run PPO on CartPole-v1:
+Quick 10k-step demo:
 
 ```bash
 python sheeprl.py \
@@ -88,20 +84,47 @@ python sheeprl.py \
   env.num_envs=1 env.sync_env=true
 ```
 
+### Visualize with TensorBoard
+
+```bash
+tensorboard --logdir logs/runs
+```
+
+---
+
 ## Directory Structure
 
 ```
-sheeprl/                               # Root of cloned SheepRL repo
-├── logs/                              # Training outputs
-│   └── runs/                          # Organized by experiment and env
-│       ├── dreamer_v3/                # DreamerV3 runs
-│       │   └── CartPole-v1/           # CartPole-specific logs
-│       │       └── 2025-04-28_18-06... # Timestamped run folders
-│       │           └── version_0/     # Versioning for reproducibility
-│       │               ├── checkpoints/  # .ckpt model files
-│       │               ├── events.out.*   # TensorBoard event logs
-│       │               └── hparams.yaml   # Hyperparameter snapshot
-│       └── ppo/                       # PPO runs (same structure)
-├── sheeprl.py                         # Main CLI entrypoint
-└── requirements.txt                   # Python dependencies
+sheeprl/                             # Root of cloned SheepRL repo
+├── logs/                            # Training outputs
+│   └── runs/                        # Organized by experiment and env
+│       ├── dreamer_v3/              # DreamerV3 runs
+│       │   └── CartPole-v1/         # CartPole-v1 logs
+│       │       └── <timestamp>/      # Timestamped run folders
+│       │           ├── version_0/   # Versioning
+│       │           │   ├── checkpoints/   # Saved .ckpt files
+│       │           │   ├── events.out.*    # TensorBoard logs
+│       │           │   └── hparams.yaml    # Hyperparam snapshot
+│       └── ppo/                     # PPO runs (similar structure)
+├── sheeprl.py                       # CLI entrypoint
+└── requirements.txt                 # Python dependencies
 ```
+
+---
+
+## Results
+
+All recorded videos of the trained agents are stored in the `results/` directory at the repo root:
+
+```
+results/
+├── dreamer_v3/                      # DreamerV3 videos
+│   └── CartPole-v1/                 # DreamerV3 CartPole-v1 runs
+│       └── video.mp4                # Example rollout video
+└── ppo/                             # PPO videos
+    └── CartPole-v1/                 # PPO CartPole-v1 runs
+        └── video.mp4                # Example rollout video
+```
+
+You can play these `.mp4` files to review agent behaviors.
+
