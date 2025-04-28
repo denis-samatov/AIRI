@@ -1,0 +1,12 @@
+lightning
+omegaconf
+gymnasium
+torchvision
+python-dotenv
+hydra-core
+opencv-python
+rich
+gymnasium[atari]
+dm_control
+tensorboard
+moviepy
